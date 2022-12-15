@@ -1,5 +1,5 @@
 export default function SingleLetter({letter}) {
-    console.log("OADJSODFJ")
+    console.log("test")
   return (
     <div>
         <h1>{letter}</h1>

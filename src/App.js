@@ -24,9 +24,9 @@ function App() {
         {show && (<Modal handleClose={handleClose}>
           <NewWord WordToArray={WordToArray} setShow={setShow} setWord={setWord} word={word}/>
       </Modal>)}
-      {LetterArr.map((e) => {
-        <SingleLetter letter={e}/>
-      })}
+      {LetterArr.map(e =>(
+          <SingleLetter letter={e}/>
+        ))}
       </div>
     </div>
   );
