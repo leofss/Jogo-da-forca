@@ -1,0 +1,8 @@
+.letter{
+    visibility: hidden;
+}
+
+.letters{
+    border-bottom: 1px solid black;
+    width: fit-content;
+}

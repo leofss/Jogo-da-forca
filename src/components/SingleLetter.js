@@ -1,8 +1,15 @@
-export default function SingleLetter({letter}) {
-    console.log("test")
+import './css/SingleLetter.css';
+
+export default function SingleLetter({guess, Arr}) {
   return (
-    <div>
-        <h1>{letter}</h1>
-    </div>
+    <>
+        {Arr.map((e) => (
+          <div className="letters">
+            <p className={e == guess ? '' : "letter"}>{e}</p>
+          </div>
+        ))}
+    </>
+
+    
   )
 }
