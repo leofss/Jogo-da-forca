@@ -1,8 +1,23 @@
 .letterinv{
-    visibility: hidden;
+    color: white;
 }
 
 .letters{
-    border-bottom: 1px solid black;
-    width: fit-content;
+    display: flex;
+    height: fit-content;
+    font-size: xxx-large;
+    flex-wrap: wrap;
+    justify-content: center;
 }
+
+.letters p{
+    border-bottom: 2px solid black;
+    width: 40px;
+    margin-left: 15px;
+}
+
+.jogo{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
