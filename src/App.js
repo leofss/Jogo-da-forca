@@ -7,9 +7,12 @@ import GuessLetter from './components/GuessLetter';
 
 function App() {
   const [show, setShow] = useState(false)
+  const [showRes, setRes] = useState(false)
   const [guess, setGuess] = useState('')
   const [word, setWord] = useState('')
   const [arr, setArr] = useState([])
+  const [win, setWin] = useState(false)
+  const [loss, setLoss] = useState(false)
 
   const CheckWord = (Word) => {
     if(word){
@@ -22,6 +25,16 @@ function App() {
   
   const handleClose = () => {
     setShow(false)
+    setRes(false)
+  }
+  const handleLost = () => {
+    setRes(true)
+    setLoss(true)
+
+  }
+  const handleWin = () => {
+    setRes(true)
+    setWin(true)
   }
 
   const obj = Object.fromEntries(
@@ -35,12 +48,22 @@ function App() {
     <div className="App">
       <div className='container'>
         <button  onClick={() => {setShow(true)}}> Nova Plavra </button>
-        <GuessLetter setGuess={setGuess} guess={guess} />
+        {word && <GuessLetter setGuess={setGuess} guess={guess} />}
         {show && (<Modal handleClose={handleClose}>
           <NewWord CheckWord={CheckWord} setShow={setShow} setWord={setWord} word={word}/>
       </Modal>)}
-        <SingleLetter guess={guess} obj={obj} arr={arr}/>
+        <SingleLetter setGuess={setGuess} guess={guess} obj={obj} arr={arr} handleWin={handleWin} handleLost={handleLost}/>
       </div>
+
+      {win && ( showRes && <Modal handleClose={handleClose}>
+          <h1>Você ganhou</h1>
+
+      </Modal>)}
+
+      {loss && ( showRes && <Modal handleClose={handleClose}>
+          <h1>Você Perdeu</h1>
+          <p>Plavara era: {word}</p>
+      </Modal>)}
     </div>
   );
 }

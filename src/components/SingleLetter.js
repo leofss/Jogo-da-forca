@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import './css/SingleLetter.css';
 import WrongGuess from './WrongGuess';
-let found = []
-export default function SingleLetter({ guess, obj, arr} ) {
+export default function SingleLetter({guess, obj, arr, handleWin, handleLost} ) {
+  const [found, setFound] = useState([])
   const [img, setImg] = useState('./img/forca.jpg')
   const [erro, setErro] = useState(0)
   const [wrong, setWrong] = useState([])
@@ -10,25 +10,33 @@ export default function SingleLetter({ guess, obj, arr} ) {
       for (const key in obj) {
         // console.log(`${key}: ${obj[key]['letter']}`);
         arr.forEach(e => {
-        if(obj[key]['found'] === true){
-          found.push(obj[key]['letter']);
-        }else{
-          if(e === guess && e === obj[key]['letter']){
-            obj[key]['found']= true;
-            found.push(obj[key]['letter']);
+          if(!found.includes(obj[key]['letter'])){
+            if(obj[key]['found'] === true){
+              found.push(obj[key]['letter']);
+            }else{
+              if(e === guess && e === obj[key]['letter']){
+                obj[key]['found']= true;
+                found.push(obj[key]['letter']);
+              }
+            }
           }
-        }
+
         });
       }
       if(arr !== '' && guess !== '' && !arr.includes(guess)){
         setErro(e => e + 1)
         setWrong(wrong => [...wrong, guess])
       }
+      if(guess != ''){
+        if(arr.every( ai => found.includes(ai))){
+          handleWin()
+          setWrong('')
+          setFound([])
+        }
+      }
 
-      
 
     }, [guess])
-
     useEffect(() => {
       if(erro === 1){
         setImg('./img/forca-head.jpg')
@@ -39,19 +47,22 @@ export default function SingleLetter({ guess, obj, arr} ) {
       }
 
       if(erro === 3){
-        setImg('./img/forca-body-l-arm.jpg')
-      }
-
-      if(erro === 4){
-        setImg('./img/forca-body-r-arm.jpg')
-      }
-
-      if(erro === 5){
         setImg('./img/forca-l-leg.jpg')
       }
 
-      if(erro === 6){
+      if(erro === 4){
         setImg('./img/forca-r-leg.jpg')
+      }
+
+      if(erro === 5){
+        setImg('./img/forca-r-arm.jpg')
+      }
+
+      if(erro === 6){
+        setImg('./img/forca-l-arm.jpg')
+        handleLost()
+        setWrong('')
+        setFound([])
       }
     }, [erro])
     
